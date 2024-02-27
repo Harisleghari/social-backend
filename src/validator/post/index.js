@@ -3,8 +3,7 @@ const postValidator = {
     create: (req, res, next) => {
         const schema = Joi.object({
             title: Joi.string().max(90).required(),
-            description: Joi.string().max(950),
-            UserId: Joi.number()
+            description: Joi.string().max(950)
         })
         
         const response =  schema.validate(req.body)

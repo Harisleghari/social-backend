@@ -5,11 +5,12 @@ const postController = {
     create: async (req, res)=>{
         try {
             const payload = req.body;
+            const userId = req.user.id
             console.log("Payload", payload);
             const createPost = await postModel.create({
                 title: payload.title,
                 description: payload.description,
-                UserId: payload.UserId
+                UserId: userId
             })
 
             res.json({

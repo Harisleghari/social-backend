@@ -12,8 +12,11 @@
   "author": "Haris Leghari",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "joi": "^17.12.1",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.10",
     "nodemon": "^3.0.3",
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",

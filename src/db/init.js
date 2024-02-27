@@ -1,8 +1,9 @@
 import commentModel from "../model/comment/index.js";
 import postModel from "../model/post/index.js";
 import userModel from "../model/user/index.js";
+import userFollowerModel from "../model/user/userFollower.js";
 
-const dbInit = async ()=>{
+const dbInit = async () => {
     try {
         await userModel.sync({
             alter: true,
@@ -16,8 +17,9 @@ const dbInit = async ()=>{
             alter: true,
             force: false
         })
+        await userFollowerModel.sync({ alter: true, force: false });
     }
-    catch(e){
+    catch (e) {
         console.log(e)
     }
 }

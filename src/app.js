@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import Express, { json } from "express";
 import { connectDB } from "./db/config.js";
 import dbInit from "./db/init.js";

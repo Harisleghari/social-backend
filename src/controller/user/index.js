@@ -1,4 +1,5 @@
 import userModel from "../../model/user/index.js";
+import userFollowerModel from "../../model/user/userFollower.js";
 const userController = {
     create: async (req, res) => {
         try {
@@ -43,6 +44,24 @@ const userController = {
             console.log(error);
         }
 
+    },
+    follow: async (req, res) => {
+        try {
+            const { userId, followId } = req.body;
+
+            const followUser = await userFollowerModel.create({
+                followeeId: followId,
+                followerId: userId 
+            })
+
+            res.json({
+                message: "User Followed",
+                followUser
+            })
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 
