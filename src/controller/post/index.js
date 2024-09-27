@@ -1,7 +1,9 @@
 import postModel from "../../model/post/index.js";
 import userModel from "../../model/user/index.js";
 
-const postController = {
+const 
+
+postController = {
     create: async (req, res)=>{
         try {
             const payload = req.body;

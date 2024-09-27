@@ -1,28 +1,33 @@
 import userModel from "../../model/user/index.js";
 import userFollowerModel from "../../model/user/userFollower.js";
+import bcrypt from "bcrypt";
 const userController = {
-    create: async (req, res) => {
+    getAll: async (req, res) => {
         try {
-            const { name, email, password } = req.body;
-            const userCreate = await userModel.create({
-                name: name,
-                email: email,
-                password: password
-            })
+            const users = await userModel.findAll()
+            res.status(200).json(users)
 
-            res.json({
-                message: "User Created",
-                userCreate
-            })
         } catch (error) {
-            console.log(error);
+            res.status(404).json({
+                message: "Bad Request"
+            })
         }
-
+    },
+    getOne: async (req, res) => {
+        try {
+            const params = req.params;
+            const users = await userModel.findByPk(params.userId)
+            res.status(200).json(users)
+        } catch (error) {
+            res.json(error)
+        }
     },
     update: async (req, res) => {
         try {
             const { name, email, password } = req.body;
             const params = req.params;
+            const saltRounds = 10;
+            const hPass = await bcrypt.hash(password, saltRounds);
             const userUpdate = await userModel.findByPk(params.userId)
             if (!userUpdate) {
                 return res.status(404).json({
@@ -32,7 +37,7 @@ const userController = {
 
             userUpdate.name = name;
             userUpdate.email = email;
-            userUpdate.password = password;
+            userUpdate.password = hPass;
 
             await userUpdate.save();
 
@@ -41,7 +46,7 @@ const userController = {
                 userUpdate
             })
         } catch (error) {
-            console.log(error);
+            res.json(error)
         }
 
     },
@@ -51,7 +56,7 @@ const userController = {
 
             const followUser = await userFollowerModel.create({
                 followeeId: followId,
-                followerId: userId 
+                followerId: userId
             })
 
             res.json({
